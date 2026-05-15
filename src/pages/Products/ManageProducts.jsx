@@ -30,9 +30,9 @@ const ManageProducts = () => {
   const fetchProducts = async () => {
     setLoading(true);
     try {
-      const shoesRes = await fetch('http://localhost:5000/products/getallshoes');
+      const shoesRes = await fetch('https://thrift-store-shopping-website-backe.vercel.app/products/getallshoes');
       const shoesData = await shoesRes.json();
-      const accRes = await fetch('http://localhost:5000/getallaccessories');
+      const accRes = await fetch('https://thrift-store-shopping-website-backe.vercel.app/getallaccessories');
       const accData = await accRes.json();
 
       const unifiedProducts = [
@@ -157,8 +157,8 @@ const ManageProducts = () => {
     const sizeArray = formData.sizes.split(',').map(s => s.trim()).filter(s => s !== "");
 
     const url = editingProduct 
-      ? `http://localhost:5000/admin/${editingProduct.type === 'shoe' ? 'shoes' : 'accessory'}/${editingProduct._id}`
-      : `http://localhost:5000/admin/${isShoe ? 'addshoes' : 'addaccessory'}`;
+      ? `https://thrift-store-shopping-website-backe.vercel.app/admin/${editingProduct.type === 'shoe' ? 'shoes' : 'accessory'}/${editingProduct._id}`
+      : `https://thrift-store-shopping-website-backe.vercel.app/admin/${isShoe ? 'addshoes' : 'addaccessory'}`;
 
     const method = editingProduct ? 'PUT' : 'POST';
     
@@ -329,7 +329,7 @@ const ManageProducts = () => {
                             const type = product.type;
                             const id = product._id;
                             const endpoint = type === 'shoe' ? `admin/shoes/${id}` : `admin/accessory/${id}`;
-                            fetch(`http://localhost:5000/${endpoint}`, { method: 'DELETE' })
+                            fetch(`https://thrift-store-shopping-website-backe.vercel.app/${endpoint}`, { method: 'DELETE' })
                               .then(res => res.json())
                               .then(data => {
                                 if (data.success) {

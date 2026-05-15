@@ -11,7 +11,7 @@ const ManageUsers = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch('http://localhost:5000/user/all');
+      const response = await fetch('https://thrift-store-shopping-website-backe.vercel.app/user/all');
       const data = await response.json();
       if (data.success) {
         setUsers(data.users);
@@ -26,7 +26,7 @@ const ManageUsers = () => {
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to permanently delete this user?')) return;
     try {
-      const response = await fetch(`http://localhost:5000/user/delete/${id}`, { method: 'DELETE' });
+      const response = await fetch(`https://thrift-store-shopping-website-backe.vercel.app/user/delete/${id}`, { method: 'DELETE' });
       const data = await response.json();
       if (data.success) {
         toast.success('User Deleted');

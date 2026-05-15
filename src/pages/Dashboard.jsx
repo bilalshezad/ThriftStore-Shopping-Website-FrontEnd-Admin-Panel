@@ -47,15 +47,15 @@ const Dashboard = () => {
 
   const fetchStats = async () => {
     try {
-      const orderRes = await fetch('http://localhost:5000/orders/count');
+      const orderRes = await fetch('https://thrift-store-shopping-website-backe.vercel.app/orders/count');
       const orderData = await orderRes.json();
       if (orderData.success) setOrderCount(orderData.count);
 
-      const userRes = await fetch('http://localhost:5000/user/count');
+      const userRes = await fetch('https://thrift-store-shopping-website-backe.vercel.app/user/count');
       const userData = await userRes.json();
       if (userData.success) setUserCount(userData.count);
 
-      const revRes = await fetch('http://localhost:5000/orders/revenue');
+      const revRes = await fetch('https://thrift-store-shopping-website-backe.vercel.app/orders/revenue');
       const revData = await revRes.json();
       if (revData.success) setRevenue(revData.totalRevenue);
     } catch (error) {

@@ -14,7 +14,7 @@ const ManageOrders = () => {
 
   const fetchOrders = async () => {
     try {
-      const response = await fetch('http://localhost:5000/orders/all');
+      const response = await fetch('https://thrift-store-shopping-website-backe.vercel.app/orders/all');
       const data = await response.json();
       if (data.success) {
         setOrders(data.orders);
@@ -34,7 +34,7 @@ const ManageOrders = () => {
 
   const handleUpdateStatus = async (orderId, newStatus) => {
     try {
-      const response = await fetch(`http://localhost:5000/orders/status/${orderId}`, {
+      const response = await fetch(`https://thrift-store-shopping-website-backe.vercel.app/orders/status/${orderId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
