@@ -28,7 +28,7 @@ const ManageOrders = () => {
 
   useEffect(() => {
     fetchOrders();
-    const interval = setInterval(fetchOrders, 5000); 
+    const interval = setInterval(fetchOrders, 5000);
     return () => clearInterval(interval);
   }, []);
 
@@ -126,7 +126,7 @@ const ManageOrders = () => {
     });
 
     const finalY = doc.lastAutoTable.finalY + 10;
-    
+
     // Total
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(12);
@@ -144,7 +144,7 @@ const ManageOrders = () => {
   };
 
   const filteredOrders = orders.filter(order => {
-    const matchesSearch = 
+    const matchesSearch =
       order.customer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       order._id.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesStatus = filterStatus === 'All Status' || order.status.toLowerCase() === filterStatus.toLowerCase();
@@ -155,7 +155,7 @@ const ManageOrders = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             className="text-5xl font-black text-black dark:text-white tracking-tighter uppercase flex items-center gap-4"
@@ -172,16 +172,16 @@ const ManageOrders = () => {
         <div className="p-8 border-b border-[#e2e2e2] dark:border-[#1a1a1a] flex flex-wrap gap-6 justify-between items-center bg-[#fcfcfc] dark:bg-[#080808]">
           <div className="relative w-full md:w-96">
             <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-[#a1a1a1]" size={20} />
-            <input 
-              type="text" 
-              placeholder="Filter by Name or ID..." 
+            <input
+              type="text"
+              placeholder="Filter by Name or ID..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-14 pr-6 py-4 rounded-2xl border border-[#e2e2e2] dark:border-[#1a1a1a] bg-white dark:bg-black focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white text-black dark:text-white transition-all text-sm font-bold shadow-sm"
             />
           </div>
           <div className="flex gap-3">
-            <select 
+            <select
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value)}
               className="px-6 py-4 rounded-2xl border border-[#e2e2e2] dark:border-[#1a1a1a] bg-white dark:bg-black text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white text-xs font-black uppercase tracking-widest shadow-sm"
@@ -219,14 +219,13 @@ const ManageOrders = () => {
                   </tr>
                 ) : (
                   filteredOrders.map((order) => (
-                    <motion.tr 
+                    <motion.tr
                       key={order._id}
                       layout
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className={`hover:bg-[#fcfcfc] dark:hover:bg-[#080808] transition-all group ${
-                        order.status.toLowerCase() === 'cancelled' ? 'opacity-50 line-through decoration-red-500/50 decoration-2' : ''
-                      }`}
+                      className={`hover:bg-[#fcfcfc] dark:hover:bg-[#080808] transition-all group ${order.status.toLowerCase() === 'cancelled' ? 'opacity-50 line-through decoration-red-500/50 decoration-2' : ''
+                        }`}
                     >
                       <td className="p-8">
                         <div className="flex flex-col">
@@ -246,7 +245,7 @@ const ManageOrders = () => {
                         <div className="flex items-center gap-3">
                           <span className="font-black text-black dark:text-white text-xl tracking-tighter">Rs {calculateTotal(order.products).toFixed(2)}</span>
                           {order.status.toLowerCase() === 'delivered' && (
-                            <motion.span 
+                            <motion.span
                               initial={{ scale: 0.5, opacity: 0 }}
                               animate={{ scale: 1, opacity: 1 }}
                               className="flex items-center gap-1 bg-emerald-500 text-white text-[9px] font-black px-2 py-1 rounded-lg uppercase tracking-tighter shadow-lg shadow-emerald-500/20"
@@ -258,21 +257,19 @@ const ManageOrders = () => {
                       </td>
                       <td className="p-8">
                         <div className="flex items-center gap-4">
-                          <div className={`w-3 h-3 rounded-full shadow-lg ${
-                            order.status.toLowerCase() === 'delivered' ? 'bg-emerald-500 shadow-emerald-500/30' :
-                            order.status.toLowerCase() === 'shipped' ? 'bg-blue-500 shadow-blue-500/30' :
-                            order.status.toLowerCase() === 'processing' ? 'bg-amber-500 shadow-amber-500/30' : 
-                            order.status.toLowerCase() === 'cancelled' ? 'bg-red-500 shadow-red-500/30' : 'bg-slate-400'
-                          }`} />
-                          <select 
+                          <div className={`w-3 h-3 rounded-full shadow-lg ${order.status.toLowerCase() === 'delivered' ? 'bg-emerald-500 shadow-emerald-500/30' :
+                              order.status.toLowerCase() === 'shipped' ? 'bg-blue-500 shadow-blue-500/30' :
+                                order.status.toLowerCase() === 'processing' ? 'bg-amber-500 shadow-amber-500/30' :
+                                  order.status.toLowerCase() === 'cancelled' ? 'bg-red-500 shadow-red-500/30' : 'bg-slate-400'
+                            }`} />
+                          <select
                             value={order.status}
                             onChange={(e) => handleUpdateStatus(order._id, e.target.value)}
-                            className={`text-[11px] font-black uppercase tracking-[0.1em] bg-transparent border-none focus:ring-0 cursor-pointer transition-colors ${
-                              order.status.toLowerCase() === 'delivered' ? 'text-emerald-500' :
-                              order.status.toLowerCase() === 'shipped' ? 'text-blue-500' :
-                              order.status.toLowerCase() === 'processing' ? 'text-amber-500' : 
-                              order.status.toLowerCase() === 'cancelled' ? 'text-red-500' : 'text-[#a1a1a1]'
-                            }`}
+                            className={`text-[11px] font-black uppercase tracking-[0.1em] bg-transparent border-none focus:ring-0 cursor-pointer transition-colors ${order.status.toLowerCase() === 'delivered' ? 'text-emerald-500' :
+                                order.status.toLowerCase() === 'shipped' ? 'text-blue-500' :
+                                  order.status.toLowerCase() === 'processing' ? 'text-amber-500' :
+                                    order.status.toLowerCase() === 'cancelled' ? 'text-red-500' : 'text-[#a1a1a1]'
+                              }`}
                           >
                             <option value="pending">PENDING</option>
                             <option value="processing">PROCESSING</option>
@@ -283,16 +280,16 @@ const ManageOrders = () => {
                         </div>
                       </td>
                       <td className="p-8 text-right">
-                        <div className="flex items-center justify-end gap-3 opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-all duration-500">
-                          <button 
+                        <div className="flex items-center justify-end gap-3 opacity-100 translate-x-0 lg:opacity-0 lg:group-hover:opacity-100 lg:translate-x-4 lg:group-hover:translate-x-0 transition-all duration-500">
+                          <button
                             onClick={() => setSelectedOrder(order)}
-                            className="p-4 bg-white dark:bg-black border border-[#e2e2e2] dark:border-[#1a1a1a] text-black dark:text-white rounded-2xl hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all shadow-xl shadow-black/5"
+                            className="p-4 bg-white dark:bg-[#111] border border-[#e2e2e2] dark:border-[#222] text-black dark:text-white rounded-2xl hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all shadow-xl shadow-black/5"
                           >
                             <Eye size={18} />
                           </button>
-                          <button 
+                          <button
                             onClick={() => handleDownloadSlip(order)}
-                            className="p-4 bg-white dark:bg-black border border-[#e2e2e2] dark:border-[#1a1a1a] text-[#a1a1a1] rounded-2xl hover:text-black dark:hover:text-white transition-all shadow-xl shadow-black/5"
+                            className="p-4 bg-white dark:bg-[#111] border border-[#e2e2e2] dark:border-[#222] text-black dark:text-white rounded-2xl hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all shadow-xl shadow-black/5"
                           >
                             <Download size={18} />
                           </button>
@@ -305,7 +302,7 @@ const ManageOrders = () => {
             </tbody>
           </table>
         </div>
-        
+
         <div className="p-8 border-t border-[#e2e2e2] dark:border-[#1a1a1a] text-[10px] font-black text-[#a1a1a1] flex justify-between items-center uppercase tracking-[0.2em] bg-[#fcfcfc] dark:bg-[#080808]">
           <span>Inventory Snapshot: {filteredOrders.length} active threads</span>
           <div className="flex gap-4">
@@ -322,14 +319,14 @@ const ManageOrders = () => {
       <AnimatePresence>
         {selectedOrder && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setSelectedOrder(null)}
               className="absolute inset-0 bg-black/80 backdrop-blur-md"
             />
-            <motion.div 
+            <motion.div
               initial={{ scale: 0.9, opacity: 0, y: 40 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 40 }}
@@ -342,12 +339,11 @@ const ManageOrders = () => {
                     <h2 className="text-3xl font-black text-black dark:text-white uppercase tracking-tighter">Package Manifest</h2>
                     <p className="text-[10px] text-[#a1a1a1] font-black uppercase tracking-widest mt-1">Order Ref: {selectedOrder._id}</p>
                   </div>
-                  <div className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest border ${
-                    selectedOrder.status === 'delivered' ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-500' :
-                    selectedOrder.status === 'shipped' ? 'bg-blue-500/10 border-blue-500/20 text-blue-500' :
-                    selectedOrder.status === 'cancelled' ? 'bg-red-500/10 border-red-500/20 text-red-500' :
-                    'bg-slate-500/10 border-slate-500/20 text-slate-500'
-                  }`}>
+                  <div className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest border ${selectedOrder.status === 'delivered' ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-500' :
+                      selectedOrder.status === 'shipped' ? 'bg-blue-500/10 border-blue-500/20 text-blue-500' :
+                        selectedOrder.status === 'cancelled' ? 'bg-red-500/10 border-red-500/20 text-red-500' :
+                          'bg-slate-500/10 border-slate-500/20 text-slate-500'
+                    }`}>
                     {selectedOrder.status}
                   </div>
                 </div>
@@ -376,10 +372,10 @@ const ManageOrders = () => {
                 </div>
 
                 <div className="mt-8 pt-8 border-t border-[#e2e2e2] dark:border-[#1a1a1a]">
-                   <div className="flex justify-between items-end">
-                      <span className="text-[10px] text-[#a1a1a1] font-black uppercase tracking-[0.3em]">Total Transaction Value</span>
-                      <span className="text-4xl font-black text-black dark:text-white tracking-tighter">Rs {calculateTotal(selectedOrder.products).toFixed(2)}</span>
-                   </div>
+                  <div className="flex justify-between items-end">
+                    <span className="text-[10px] text-[#a1a1a1] font-black uppercase tracking-[0.3em]">Total Transaction Value</span>
+                    <span className="text-4xl font-black text-black dark:text-white tracking-tighter">Rs {calculateTotal(selectedOrder.products).toFixed(2)}</span>
+                  </div>
                 </div>
               </div>
 
@@ -429,7 +425,7 @@ const ManageOrders = () => {
                 </div>
 
                 <div className="pt-8 mt-auto flex flex-col gap-3">
-                  <button 
+                  <button
                     onClick={() => handleDownloadSlip(selectedOrder)}
                     className="w-full py-5 bg-black dark:bg-white text-white dark:text-black rounded-3xl text-xs font-black uppercase tracking-[0.2em] shadow-2xl shadow-black/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-3"
                   >
